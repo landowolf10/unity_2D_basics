@@ -46,16 +46,7 @@ public class PlayerController
 
         bool changingDirections = (direction.x > 0f && rb.velocity.x < 0f) || (direction.x < 0f && rb.velocity.x > 0f);
 
-        if(onGround["grounded1"] || onGround["grounded2"])
-        {
-            if (Mathf.Abs(direction.x) < 0.4f || changingDirections)
-                rb.drag = linearDrag;
-            else
-                rb.drag = 0f;
-
-            rb.gravityScale = 0;
-        }
-        else
+        if(!onGround["grounded1"] || !onGround["grounded2"])
         {
             rb.gravityScale = gravity;
             rb.drag = linearDrag * 0.15f;
@@ -64,6 +55,15 @@ public class PlayerController
                 rb.gravityScale = gravity * fallMultiplier;
             else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
                 rb.gravityScale = gravity * (fallMultiplier / 2);
+
+            return;
         }
+
+        if (Mathf.Abs(direction.x) < 0.4f || changingDirections)
+            rb.drag = linearDrag;
+        else
+            rb.drag = 0f;
+
+        rb.gravityScale = 0;
     }
 }
