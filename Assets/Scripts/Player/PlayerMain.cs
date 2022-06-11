@@ -47,7 +47,7 @@ public class PlayerMain : MonoBehaviour
         //Dictionary that stores true or false depending if each transform object is on the ground.
         Dictionary<string, bool> onGround = pc.isGrounded(groundCheck1, groundCheck2, groundLayer);
 
-        if (Input.GetButtonDown("Jump") && hangTimeCounter > 0)
+        if (Input.GetButtonDown("Jump") && hangTimeCounter > 0f)
             canJump = true;
 
         animator.SetBool("isGrounded", (onGround["grounded1"] || onGround["grounded2"]));
